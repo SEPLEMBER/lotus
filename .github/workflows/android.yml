@@ -18,15 +18,18 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Build Release APK
-      # Собираем стандартный релиз без flavor'ов
+    - name: Build Release APKs
       run: ./gradlew assembleRelease
 
-    - name: Upload artifact
+    - name: List generated APKs and sizes
+      run: |
+        echo "📦 Сгенерированные APK:"
+        ls -lh app/build/outputs/apk/release/*.apk || echo "APK не найдены"
+
+    - name: Upload Release APKs
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-unsigned
-        # Путь к релизному APK без flavor'ов
+        name: release-apks
         path: app/build/outputs/apk/release/*.apk
         retention-days: 2
         if-no-files-found: error
