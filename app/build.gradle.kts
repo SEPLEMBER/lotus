@@ -26,8 +26,11 @@ android {
                 abi {
                     isEnable = true
                     reset()
-                    include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
-                    isUniversalApk = true
+                    // Только ARM-архитектуры для реальных устройств
+                    include("arm64-v8a", "armeabi-v7a")
+                    // Если нужны x86 для эмуляторов, раскомментируйте строку ниже и закомментируйте строку выше:
+                    // include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+                    isUniversalApk = false // Ключевое изменение: не собирать "жирный" APK
                 }
             }
         } else {
